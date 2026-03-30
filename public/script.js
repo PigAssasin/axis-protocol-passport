@@ -293,10 +293,13 @@ async function downloadCard() {
   const card = document.getElementById('pokemon-card');
   const wrapper = document.getElementById('card-wrapper');
   const origTransform = wrapper.style.transform;
+  const origShadow = card.style.boxShadow; // Store shadow
+  
   wrapper.style.transform = '';
+  card.style.boxShadow = 'none'; // Temporarily disable drop shadows to avoid blurry dark edges
 
   try {
-    const canvas = await html2canvas(document.getElementById('card-wrapper'), {
+    const canvas = await html2canvas(wrapper, {
       scale: 3,
       useCORS: true,
       allowTaint: true,
@@ -314,6 +317,7 @@ async function downloadCard() {
   }
 
   wrapper.style.transform = origTransform;
+  card.style.boxShadow = origShadow; // Restore shadow
 }
 
 // ===================== ERROR =====================
