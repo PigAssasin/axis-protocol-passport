@@ -139,6 +139,31 @@ body::before {
 .passport-card.theme-gold   { background: radial-gradient(circle at top left, #fbbf24 0%, #78350f 100%); } /* y-axis */
 .passport-card.theme-blue   { background: radial-gradient(circle at bottom right, #60a5fa 0%, #1e3a8a 100%); } /* z-axis */
 
+/* ========= TEAM THEME (VIP) ========= */
+.passport-card.theme-team {
+  background: radial-gradient(circle at center, #ffe55c 0%, #b8860b 60%, #5c4305 100%) !important;
+  border: 4px solid #ffd700 !important;
+  box-shadow: 0 0 30px rgba(255,215,0,0.6), inset 0 0 20px rgba(255,215,0,0.4) !important;
+}
+.passport-card.theme-team .d-row label, 
+.passport-card.theme-team .p-issuing,
+.passport-card.theme-team .passport-mrz,
+.passport-card.theme-team .profile-stats,
+.passport-card.theme-team .p-sub-title,
+.passport-card.theme-team .p-signature-box label {
+  color: rgba(255, 235, 100, 0.9) !important;
+}
+.passport-card.theme-team .d-val,
+.passport-card.theme-team .p-title,
+.passport-card.theme-team .role-tag,
+.passport-card.theme-team .sig-text {
+  color: #ffea00 !important;
+  text-shadow: 0 0 8px rgba(255,215,0,0.5) !important;
+}
+.passport-card.theme-team .sig-line {
+  border-bottom-color: rgba(255,235,100,0.5) !important;
+}
+
 /* ========= WATERMARKS ========= */
 .passport-watermarks { position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0.15; }
 .wm { position: absolute; filter: brightness(0) invert(1); }

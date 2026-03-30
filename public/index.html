@@ -52,6 +52,7 @@
 
       <!-- Manual section -->
       <div class="manual-section">
+        <input id="manual-fullname" type="text" class="input-field" placeholder="FULL NAME (OPTIONAL)" autocomplete="off" />
         <input id="manual-username" type="text" class="input-field" placeholder="USERNAME (REQUIRED)" autocomplete="off" />
         <input id="manual-date" type="text" class="input-field" placeholder="JOIN DATE (ex: 22/03/2026)" autocomplete="off" />
         
@@ -73,6 +74,7 @@
           <label class="cb-label"><input type="checkbox" value="X-Axis"> X-Axis</label>
           <label class="cb-label"><input type="checkbox" value="Y-Axis"> Y-Axis</label>
           <label class="cb-label"><input type="checkbox" value="Ambassador"> Ambassador</label>
+          <label class="cb-label"><input type="checkbox" value="Team"> Team</label>
         </div>
 
         <div class="upload-area" id="upload-area">
@@ -122,6 +124,7 @@
           <label class="cb-label"><input type="checkbox" value="X-Axis"> X-Axis</label>
           <label class="cb-label"><input type="checkbox" value="Y-Axis"> Y-Axis</label>
           <label class="cb-label"><input type="checkbox" value="Ambassador"> Ambassador</label>
+          <label class="cb-label"><input type="checkbox" value="Team"> Team</label>
         </div>
         
         <textarea id="user-bio" class="input-field" placeholder="Enter your bio..." rows="2" style="display:none; resize:none; font-family:var(--font-exo)"></textarea>
@@ -195,7 +198,7 @@
                 </div>
               </div>
               
-              <div class="p-signature-box">
+              <div class="p-signature-box" id="p-signature-box">
                 <div class="sig-text" id="c-signature">Username</div>
                 <div class="sig-line"></div>
                 <label style="display:flex;"><span style="padding-right: 5px;">Authorized</span><span>Signature</span></label>

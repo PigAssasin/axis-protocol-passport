@@ -4,8 +4,8 @@ let manualImageDataUrl = null;
 
 // ===================== INIT =====================
 window.addEventListener('DOMContentLoaded', async () => {
-  // Fix html2canvas ignoring CSS invert filters by converting raw image pixels to white
-  document.querySelectorAll('.wm').forEach(invertImgToWhite);
+  // Fix html2canvas ignoring CSS invert filters by converting raw image pixels to white or gold
+  tintWatermarks(255, 255, 255);
 
   const params = new URLSearchParams(window.location.search);
 
@@ -63,6 +63,7 @@ function showConnectedPanel() {
 
   // Tự động phân tích Role từ Server (Bảng ánh xạ ID -> Tên Role)
   const ROLE_MAP = {
+    "1447972418181271632": "Team",
     "1450031752323141643": "OG", 
     "1461573987678289963": "Little Prince",
     "1456553231961423905": "X-Axis",
@@ -130,6 +131,7 @@ function getServerAgeYears(joinedAt) {
 
 // ===================== RANK & THEME LOGIC =====================
 const ROLE_HIERARCHY = [
+  { keywords: ['team'], theme: 'theme-team', rankLabel: 'TEAM' },
   { keywords: ['ambassador'], theme: 'theme-teal', rankLabel: 'AMBASSADOR' },
   { keywords: ['z-axis', 'z axis'], theme: 'theme-blue', rankLabel: 'Z-AXIS' },
   { keywords: ['y-axis', 'y axis'], theme: 'theme-gold', rankLabel: 'Y-AXIS' },
@@ -195,6 +197,7 @@ function generateFromDiscord() {
 
 // ===================== GENERATE MANUAL =====================
 async function generateManual() {
+  const fullName = document.getElementById('manual-fullname').value.trim();
   const username = document.getElementById('manual-username').value.trim();
   let manualDate = document.getElementById('manual-date').value.trim();
   if (!username) { showError('Please enter a username.'); return; }
@@ -220,7 +223,7 @@ async function generateManual() {
   const themeInfo = getThemeInfo(roleArray);
 
   buildCard({
-    name: username,
+    name: fullName || username,
     avatarUrl: manualImageDataUrl,
     tag: `@${username}`,
     joined: manualDate,
@@ -264,6 +267,19 @@ function buildCard(data) {
   // Apply Theme Class
   const card = document.getElementById('pokemon-card');
   card.className = `passport-card ${data.themeClass}`;
+
+  const sigBox = document.getElementById('p-signature-box');
+  if (sigBox) {
+    if (data.rankLabel === 'TEAM') sigBox.style.display = 'none';
+    else sigBox.style.display = 'block';
+  }
+
+  // Tint watermarks based on theme
+  if (data.themeClass === 'theme-team') {
+    tintWatermarks(255, 215, 0); // Gold
+  } else {
+    tintWatermarks(255, 255, 255); // White
+  }
 
   // Open modal
   document.getElementById('modal-overlay').classList.add('active');
@@ -376,26 +392,37 @@ function showError(msg) {
 }
 
 // ===================== UTILS =====================
-function invertImgToWhite(img) {
-  if (img.complete) process();
-  else img.onload = process;
+function tintWatermarks(r, g, b) {
+  document.querySelectorAll('.wm').forEach(img => {
+    if (!img.dataset.origSrc) img.dataset.origSrc = img.src;
 
-  function process() {
-    if (img.dataset.inverted) return;
-    const cw = img.naturalWidth || 400, ch = img.naturalHeight || 400;
-    const cvs = document.createElement('canvas');
-    cvs.width = cw; cvs.height = ch;
-    const ctx = cvs.getContext('2d');
-    ctx.drawImage(img, 0, 0, cw, ch);
-    const idata = ctx.getImageData(0, 0, cw, ch);
-    const d = idata.data;
-    for (let i = 0; i < d.length; i += 4) {
-      if (d[i + 3] > 0) { d[i] = 255; d[i + 1] = 255; d[i + 2] = 255; }
+    if (img.complete && img.naturalWidth) applyTint();
+    else { const t = new Image(); t.src = img.dataset.origSrc; t.onload = applyTint; }
+
+    function applyTint() {
+      if (img.dataset.r == r && img.dataset.g == g && img.dataset.b == b) return;
+      const cw = img.naturalWidth || 400, ch = img.naturalHeight || 400;
+      if (cw === 0) return; // not loaded yet
+      
+      const cvs = document.createElement('canvas');
+      cvs.width = cw; cvs.height = ch;
+      const ctx = cvs.getContext('2d');
+      const srcImg = new Image();
+      srcImg.crossOrigin = "anonymous";
+      srcImg.onload = () => {
+        ctx.drawImage(srcImg, 0, 0, cw, ch);
+        const idata = ctx.getImageData(0, 0, cw, ch);
+        const d = idata.data;
+        for (let i = 0; i < d.length; i += 4) {
+          if (d[i + 3] > 0) { d[i] = r; d[i + 1] = g; d[i + 2] = b; }
+        }
+        ctx.putImageData(idata, 0, 0);
+        img.src = cvs.toDataURL();
+        img.dataset.r = r; img.dataset.g = g; img.dataset.b = b;
+      };
+      srcImg.src = img.dataset.origSrc;
     }
-    ctx.putImageData(idata, 0, 0);
-    img.src = cvs.toDataURL();
-    img.dataset.inverted = "true";
-  }
+  });
 }
 
 // ===================== SHARE TO X (TWITTER) =====================
