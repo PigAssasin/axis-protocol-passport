@@ -125,9 +125,6 @@ function generateFromDiscord() {
   const u = discordUser;
   
   let avatarHash = u.avatar;
-  if (u.guild_member && u.guild_member.avatar) {
-    avatarHash = u.guild_member.avatar;
-  }
   const avatarUrl = getAvatarUrl(u.id, avatarHash);
   const displayName = (u.guild_member && u.guild_member.nick) ? u.guild_member.nick : u.username;
   const joinedDate = u.guild_member ? new Date(u.guild_member.joined_at).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB');
@@ -159,23 +156,26 @@ function generateFromDiscord() {
 // ===================== GENERATE MANUAL =====================
 async function generateManual() {
   const username = document.getElementById('manual-username').value.trim();
+  let manualDate = document.getElementById('manual-date').value.trim();
   if (!username) { showError('Please enter a username.'); return; }
   if (!manualImageDataUrl) { showError('Please upload an image.'); return; }
 
+  if (!manualDate) { manualDate = new Date().toLocaleDateString('en-GB'); }
+
   // Get Roles
-  const checkboxes = document.querySelectorAll('#role-checkboxes input:checked');
+  const checkboxes = document.querySelectorAll('#manual-roles input:checked');
   let roleArray = Array.from(checkboxes).map(cb => cb.value);
-  if (roleArray.length === 0) roleArray = ['OG', 'Little Prince'];
+  if (roleArray.length === 0) roleArray = ['MEMBER'];
 
   // Get Country
-  const countryInput = document.getElementById('user-country').value;
+  const countryInput = document.getElementById('manual-country').value;
   const themeInfo = getThemeInfo(roleArray);
 
   buildCard({
     name: username,
     avatarUrl: manualImageDataUrl,
     tag: `@${username}`,
-    joined: new Date().toLocaleDateString('en-GB'),
+    joined: manualDate,
     country: countryInput,
     roles: roleArray,
     themeClass: themeInfo.theme,
@@ -308,7 +308,7 @@ async function downloadCard() {
     });
     const name = (discordUser?.username || document.getElementById('manual-username')?.value || 'card').toLowerCase().replace(/\s+/g, '-');
     const link = document.createElement('a');
-    link.download = `ritual-card-${name}.png`;
+    link.download = `axis-passport-${name}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
   } catch (err) {

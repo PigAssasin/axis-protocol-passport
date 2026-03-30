@@ -53,6 +53,29 @@
       <!-- Manual section -->
       <div class="manual-section">
         <input id="manual-username" type="text" class="input-field" placeholder="USERNAME (REQUIRED)" autocomplete="off" />
+        <input id="manual-date" type="text" class="input-field" placeholder="JOIN DATE (ex: 22/03/2026)" autocomplete="off" />
+        
+        <select id="manual-country" class="input-field select-field" style="margin-top:4px;">
+          <option value="Vietnam">Vietnam</option>
+          <option value="Indonesia">Indonesia</option>
+          <option value="Philippines">Philippines</option>
+          <option value="Korea">Korea</option>
+          <option value="Türkiye">Türkiye</option>
+          <option value="China">China</option>
+          <option value="Japan">Japan</option>
+          <option value="India">India</option>
+          <option value="Nigeria">Nigeria</option>
+        </select>
+
+        <div class="checkbox-group" id="manual-roles" style="margin-top:4px; margin-bottom:8px;">
+          <label class="cb-label"><input type="checkbox" value="OG"> OG</label>
+          <label class="cb-label"><input type="checkbox" value="Little Prince"> Little Prince</label>
+          <label class="cb-label"><input type="checkbox" value="X-Axis"> X-Axis</label>
+          <label class="cb-label"><input type="checkbox" value="Y-Axis"> Y-Axis</label>
+          <label class="cb-label"><input type="checkbox" value="Z-Axis"> Z-Axis</label>
+          <label class="cb-label"><input type="checkbox" value="Ambassador"> Ambassador</label>
+        </div>
+
         <div class="upload-area" id="upload-area">
           <input type="file" id="file-input" accept="image/*" hidden />
           <div class="upload-inner" id="upload-inner">
