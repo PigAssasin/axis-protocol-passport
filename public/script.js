@@ -60,6 +60,46 @@ function showConnectedPanel() {
   document.getElementById('prev-avatar').src = avatarUrl;
   document.getElementById('prev-name').textContent = u.username;
   document.getElementById('prev-tag').textContent = u.tag;
+
+  // Tự động phân tích Role từ Server (Bảng ánh xạ ID -> Tên Role)
+  const ROLE_MAP = {
+    "1450031752323141643": "OG", 
+    "1461573987678289963": "Little Prince",
+    "1456553231961423905": "X-Axis",
+    "1456553470625841243": "Y-Axis",
+    // "z-axis chưa có ID": "Z-Axis",
+    "1474316475224297524": "Ambassador"
+  };
+
+  const checkboxes = document.querySelectorAll('#role-checkboxes input');
+  // Xóa trắng và khóa không cho user tự click
+  checkboxes.forEach(cb => { 
+    cb.checked = false; 
+    cb.disabled = true; 
+    cb.parentElement.style.opacity = "0.5";
+  }); 
+
+  // Nếu người dùng có roles trong server thì đối chiếu bật sáng checkbox
+  if (u.guild_member && u.guild_member.roles) {
+    let hasRole = false;
+    u.guild_member.roles.forEach(roleId => {
+      const roleName = ROLE_MAP[roleId];
+      if (roleName) {
+        const cb = document.querySelector(`#role-checkboxes input[value="${roleName}"]`);
+        if (cb) {
+          cb.checked = true;
+          cb.parentElement.style.opacity = "1";
+          hasRole = true;
+        }
+      }
+    });
+    // Nếu quét xong mà không trùng Role nào thì mặc định cấp Member
+    if (!hasRole) {
+      document.querySelector('#role-checkboxes').insertAdjacentHTML('beforeend', '<p style="color:#aaa; font-size:11px; margin-top:5px; width:100%;">Auto-detected: No special roles found. Defaulting to MEMBER.</p>');
+    }
+  } else {
+    document.querySelector('#role-checkboxes').insertAdjacentHTML('beforeend', '<p style="color:#aaa; font-size:11px; margin-top:5px; width:100%;">Not in server. Defaulting to MEMBER.</p>');
+  }
 }
 
 // ===================== AVATAR URL =====================
@@ -129,11 +169,11 @@ function generateFromDiscord() {
   const displayName = (u.guild_member && u.guild_member.nick) ? u.guild_member.nick : u.username;
   const joinedDate = u.guild_member ? new Date(u.guild_member.joined_at).toLocaleDateString('en-GB') : new Date().toLocaleDateString('en-GB');
 
-  // Get Roles from Checkboxes
+  // Get Roles from Checkboxes (which were auto-checked by Discord fetch)
   const checkboxes = document.querySelectorAll('#role-checkboxes input:checked');
   let roleArray = Array.from(checkboxes).map(cb => cb.value);
   if (roleArray.length === 0) {
-    roleArray = ['OG']; // Default
+    roleArray = ['MEMBER']; // Default
   }
 
   // Get Country
