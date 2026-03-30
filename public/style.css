@@ -132,6 +132,7 @@ body::before {
 }
 
 /* Themes based on Role Hierarchy */
+.passport-card.theme-teal   { background: radial-gradient(circle at center, rgba(65, 188, 156, 1) 0%, #1a5646 100%); } /* ambassador */
 .passport-card.theme-green  { background: radial-gradient(circle at center, #4ade80 0%, #064e3b 100%); } /* OG */
 .passport-card.theme-purple { background: radial-gradient(circle at top right, #c084fc 0%, #4c1d95 100%); } /* Little prince */
 .passport-card.theme-red    { background: radial-gradient(circle at center, #fb7185 0%, #881337 100%); } /* x-axis */

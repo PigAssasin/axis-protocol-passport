@@ -4,6 +4,9 @@ let manualImageDataUrl = null;
 
 // ===================== INIT =====================
 window.addEventListener('DOMContentLoaded', async () => {
+  // Fix html2canvas ignoring CSS invert filters by converting raw image pixels to white
+  document.querySelectorAll('.wm').forEach(invertImgToWhite);
+
   const params = new URLSearchParams(window.location.search);
 
   if (params.get('error')) {
@@ -87,6 +90,7 @@ function getServerAgeYears(joinedAt) {
 
 // ===================== RANK & THEME LOGIC =====================
 const ROLE_HIERARCHY = [
+  { keywords: ['ambassador'], theme: 'theme-teal', rankLabel: 'AMBASSADOR' },
   { keywords: ['z-axis', 'z axis'], theme: 'theme-blue', rankLabel: 'Z-AXIS' },
   { keywords: ['y-axis', 'y axis'], theme: 'theme-gold', rankLabel: 'Y-AXIS' },
   { keywords: ['x-axis', 'x axis'], theme: 'theme-red', rankLabel: 'X-AXIS' },
@@ -187,7 +191,7 @@ function buildCard(data) {
   document.getElementById('c-country').textContent = data.country.toUpperCase();
 
   // Randomise signature
-  const signatures = ['plpiaoliang', 'ChrisF(✱,✱)'];
+  const signatures = ['plpiaoliang', 'ChrisF(✱,✱)', '0xsexybanana', '0xzagen'];
   document.getElementById('c-signature').textContent = signatures[Math.floor(Math.random() * signatures.length)];
 
   // Render Roles
@@ -319,9 +323,32 @@ function showError(msg) {
   box.style.display = 'block';
 }
 
+// ===================== UTILS =====================
+function invertImgToWhite(img) {
+  if (img.complete) process();
+  else img.onload = process;
+
+  function process() {
+    if (img.dataset.inverted) return;
+    const cw = img.naturalWidth || 400, ch = img.naturalHeight || 400;
+    const cvs = document.createElement('canvas');
+    cvs.width = cw; cvs.height = ch;
+    const ctx = cvs.getContext('2d');
+    ctx.drawImage(img, 0, 0, cw, ch);
+    const idata = ctx.getImageData(0, 0, cw, ch);
+    const d = idata.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] > 0) { d[i] = 255; d[i + 1] = 255; d[i + 2] = 255; }
+    }
+    ctx.putImageData(idata, 0, 0);
+    img.src = cvs.toDataURL();
+    img.dataset.inverted = "true";
+  }
+}
+
 // ===================== SHARE TO X (TWITTER) =====================
 function shareToTwitter() {
-  const text = `Axis Passport\n\n[text]\n\n@nheoweb3 @plpiaoliang @chris_anm01`;
+  const text = `[Your content]\n\n@nheoweb3 @plpiaoliang @chris_anm01\n\nCreate your passport here: https://axis-protocol-passport.onrender.com/`;
   const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
   
   // 1. Mở Tap Twitter lên trước để tránh bị trình duyệt chặn Pop-up (nếu để sau hàm tải bất đồng bộ)
