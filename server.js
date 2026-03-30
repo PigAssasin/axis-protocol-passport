@@ -111,7 +111,11 @@ app.get('/auth/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 Ritual Card Generator → http://localhost:${PORT}\n`);
-  if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Axis Protocol Generator → http://localhost:${PORT}\n`);
+    if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
+  });
+}
+
+module.exports = app;
