@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const path = require('path');
 
 const app = express();
@@ -12,11 +12,10 @@ const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI || `http://localhost:${PORT}/auth/callback`;
 const TARGET_GUILD_ID = process.env.TARGET_GUILD_ID;
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'ritual-secret-key-2024',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET || 'ritual-secret-key-2024'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -108,10 +107,16 @@ app.get('/api/me', (req, res) => {
 
 // Logout
 app.get('/auth/logout', (req, res) => {
-  req.session.destroy(() => res.redirect('/'));
+  req.session = null;
+  res.redirect('/');
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 Axis Protocol Generator → http://localhost:${PORT}\n`);
-  if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Axis Protocol Generator → http://localhost:${PORT}\n`);
+    if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
+  });
+}
+
+// Export the Express API for Serverless environments like Vercel
+module.exports = app;
