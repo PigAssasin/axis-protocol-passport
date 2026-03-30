@@ -160,7 +160,15 @@ async function generateManual() {
   if (!username) { showError('Please enter a username.'); return; }
   if (!manualImageDataUrl) { showError('Please upload an image.'); return; }
 
-  if (!manualDate) { manualDate = new Date().toLocaleDateString('en-GB'); }
+  if (!manualDate) { 
+    manualDate = '01/01/2026'; 
+  } else {
+    // Validate format dd/mm/yyyy
+    if (!/^\d{2}\/\d{2}\/\d{4}$/.test(manualDate)) {
+      showError('Date must be in DD/MM/YYYY format');
+      return;
+    }
+  }
 
   // Get Roles
   const checkboxes = document.querySelectorAll('#manual-roles input:checked');
@@ -352,7 +360,7 @@ function invertImgToWhite(img) {
 
 // ===================== SHARE TO X (TWITTER) =====================
 function shareToTwitter() {
-  const text = `[Your content]\n\n@nheoweb3 @plpiaoliang @chris_anm01\n\nCreate your passport here: https://axis-protocol-passport.onrender.com/`;
+  const text = `[Your content]\n\n@nheoweb3 @plpiaoliang @chris_anm01\n\nCreate your passport here: https://axis-protocol-passport.vercel.app/`;
   const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
   
   // 1. Mở Tap Twitter lên trước để tránh bị trình duyệt chặn Pop-up (nếu để sau hàm tải bất đồng bộ)
