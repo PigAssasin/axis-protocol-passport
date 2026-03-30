@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axis Protocol | Passport Generator</title>
+  <meta name="description" content="Connect your Discord to generate a holographic Pokemon-style card." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&family=Caveat:wght@400..700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <img src="/images/star-logo.png" class="logo-icon" style="filter: invert(1); width: 26px; height: 26px; object-fit: contain; pointer-events:none;" />
+      <span>Axis Protocol</span>
+    </div>
+    <div class="header-sep"></div>
+    <span class="header-title">Passport Generator</span>
+  </div>
+</header>
+
+<!-- BG DECORATIONS -->
+<div class="bg-deco">
+  <div class="sym sym-tr"></div>
+  <div class="sym sym-bl"></div>
+  <div class="sym sym-br"></div>
+</div>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+  <!-- SETUP PANEL -->
+  <section class="panel" id="setup-panel">
+    <div class="panel-box">
+      <div class="panel-badge">AXIS PROTOCOL v3</div>
+      <h1 class="panel-title axis-glowing-title">AXIS PROTOCOL</h1>
+      <p class="panel-sub">Kết nối tài khoản Discord để trích xuất thẻ căn cước (Passport) chính thức trên mạng lưới Axis Protocol.</p>
+
+      <a href="/auth/discord" class="discord-btn" id="discord-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+        </svg>
+        Connect with Discord
+      </a>
+
+      <div class="or-divider"><span>or use manual upload</span></div>
+
+      <!-- Manual section -->
+      <div class="manual-section">
+        <input id="manual-username" type="text" class="input-field" placeholder="USERNAME (REQUIRED)" autocomplete="off" />
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="file-input" accept="image/*" hidden />
+          <div class="upload-inner" id="upload-inner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+              <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+            </svg>
+            <p id="upload-label">Click or drag photo here</p>
+          </div>
+        </div>
+        <button class="manual-gen-btn" id="manual-gen-btn" onclick="generateManual()">Generate Card →</button>
+      </div>
+
+      <div class="error-box" id="error-box" style="display:none"></div>
+    </div>
+  </section>
+
+  <!-- CONNECTED PANEL -->
+  <section class="panel" id="connected-panel" style="display:none">
+    <div class="panel-box">
+      <div class="panel-badge connected-badge">✓ DISCORD CONNECTED</div>
+      <div class="user-preview">
+        <img id="prev-avatar" src="" alt="avatar" class="prev-avatar" />
+        <div class="prev-info">
+          <p class="prev-name" id="prev-name">Loading...</p>
+          <p class="prev-tag"  id="prev-tag">...</p>
+        </div>
+      </div>
+      
+      <div class="manual-section" style="margin-top: 15px; margin-bottom: 5px; gap: 12px;">
+        <select id="user-country" class="input-field select-field">
+          <option value="Vietnam">Vietnam</option>
+          <option value="Indonesia">Indonesia</option>
+          <option value="Philippines">Philippines</option>
+          <option value="Korea">Korea</option>
+          <option value="Türkiye">Türkiye</option>
+          <option value="China">China</option>
+        </select>
+        
+        <div class="checkbox-group" id="role-checkboxes">
+          <label class="cb-label"><input type="checkbox" value="OG"> OG</label>
+          <label class="cb-label"><input type="checkbox" value="Little Prince"> Little Prince</label>
+          <label class="cb-label"><input type="checkbox" value="X-Axis"> X-Axis</label>
+          <label class="cb-label"><input type="checkbox" value="Y-Axis"> Y-Axis</label>
+          <label class="cb-label"><input type="checkbox" value="Z-Axis"> Z-Axis</label>
+        </div>
+        
+        <textarea id="user-bio" class="input-field" placeholder="Nhập mô tả của bạn (Vd: Tôi là một con rồng siêu cấp...)" rows="2" style="display:none; resize:none; font-family:var(--font-exo)"></textarea>
+      </div>
+
+      <button class="gen-btn" onclick="generateFromDiscord()">
+        ✦ Generate My Card
+      </button>
+      <a href="/auth/logout" class="logout-link">Disconnect account</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- CARD MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-content">
+
+    <!-- Pokemon Card -->
+    <div class="card-scene" id="card-scene">
+      <div class="card-wrapper" id="card-wrapper">
+        <div class="passport-card" id="pokemon-card">
+          <!-- Holographic layer -->
+          <div class="holo-layer" id="holo-layer"></div>
+          
+          <!-- Watermark Backgrounds -->
+          <div class="passport-watermarks">
+            <img src="/images/watermark_axis_1.png" class="wm wm-1" />
+            <img src="/images/watermark_axis_2.png" class="wm wm-2" />
+          </div>
+
+          <div class="passport-header">
+            <div class="p-title">AXIS PROTOCOL PASSPORT</div>
+            <div class="p-issuing">ISSUING AUTHORITY: DISCORD NETWORK</div>
+          </div>
+          
+          <div class="passport-body">
+            <!-- Cột trái: Ảnh Thẻ -->
+            <div class="p-photo-col">
+              <div class="p-photo-frame">
+                <img id="c-avatar" src="" alt="Avatar" />
+              </div>
+            </div>
+            
+            <!-- Cột phải: Thông tin -->
+            <div class="p-details-col">
+              <div class="d-row">
+                <label>Name / Tên Hiển Thị</label>
+                <div class="d-val cursive" id="c-name">Username</div>
+              </div>
+              
+              <div class="d-row-split">
+                <div class="d-row">
+                  <label>Username (Tag)</label>
+                  <div class="d-val blocky" id="c-tag">#0000</div>
+                </div>
+                <div class="d-row">
+                  <label>Date of Joining</label>
+                  <div class="d-val" id="c-joined">01 JAN 2024</div>
+                </div>
+                <div class="d-row">
+                  <label>Country / Quốc Gia</label>
+                  <div class="d-val blocky" id="c-country">VIETNAM</div>
+                </div>
+              </div>
+
+              <div class="d-row" style="margin-top:2px;">
+                <label>Recognized Roles</label>
+                <div class="roles-grid" id="c-roles">
+                  <!-- JS Renders roles -->
+                </div>
+              </div>
+              
+              <div class="p-signature-box">
+                <div class="sig-text" id="c-signature">Username</div>
+                <div class="sig-line"></div>
+                <label>P-Holder's Signature</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="passport-mrz">
+            P&lt;DISC&lt;USERNAME&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+            00000AXISPT&lt;123456&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;9
+          </div>
+        </div><!-- end .passport-card -->
+      </div><!-- end .card-wrapper -->
+    </div><!-- end .card-scene -->
+
+    <div class="modal-actions">
+      <button class="btn-dl" onclick="downloadCard()">⬇ Download PNG</button>
+      <button class="btn-cl" onclick="closeModal()">✕ Close</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

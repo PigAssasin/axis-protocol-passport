@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ritual | Card Generator</title>
+  <meta name="description" content="Generate your personalized Ritual card by uploading your photo and entering your username." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="2" width="12" height="12" fill="currentColor"/>
+          <rect x="2" y="14" width="12" height="12" fill="currentColor"/>
+          <rect x="26" y="14" width="12" height="12" fill="currentColor"/>
+          <rect x="14" y="26" width="12" height="12" fill="currentColor"/>
+          <rect x="8" y="8" width="8" height="8" fill="currentColor"/>
+          <rect x="24" y="8" width="8" height="8" fill="currentColor"/>
+          <rect x="8" y="24" width="8" height="8" fill="currentColor"/>
+          <rect x="24" y="24" width="8" height="8" fill="currentColor"/>
+        </svg>
+        <span class="logo-text">Ritual</span>
+      </div>
+      <div class="header-divider"></div>
+      <span class="header-title">Card Generator</span>
+    </div>
+  </header>
+
+  <!-- BACKGROUND DECORATIONS -->
+  <div class="bg-decoration">
+    <div class="bg-symbol top-right">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="10" width="80" height="80" fill="white" opacity="0.15"/>
+        <rect x="10" y="60" width="80" height="80" fill="white" opacity="0.15"/>
+        <rect x="110" y="60" width="80" height="80" fill="white" opacity="0.15"/>
+        <rect x="60" y="110" width="80" height="80" fill="white" opacity="0.15"/>
+        <rect x="35" y="35" width="50" height="50" fill="white" opacity="0.12"/>
+        <rect x="115" y="35" width="50" height="50" fill="white" opacity="0.12"/>
+        <rect x="35" y="115" width="50" height="50" fill="white" opacity="0.12"/>
+        <rect x="115" y="115" width="50" height="50" fill="white" opacity="0.12"/>
+      </svg>
+    </div>
+    <div class="bg-symbol bottom-right">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="10" width="80" height="80" fill="white" opacity="0.12"/>
+        <rect x="10" y="60" width="80" height="80" fill="white" opacity="0.12"/>
+        <rect x="110" y="60" width="80" height="80" fill="white" opacity="0.12"/>
+        <rect x="60" y="110" width="80" height="80" fill="white" opacity="0.12"/>
+        <rect x="35" y="35" width="50" height="50" fill="white" opacity="0.1"/>
+        <rect x="115" y="35" width="50" height="50" fill="white" opacity="0.1"/>
+        <rect x="35" y="115" width="50" height="50" fill="white" opacity="0.1"/>
+        <rect x="115" y="115" width="50" height="50" fill="white" opacity="0.1"/>
+      </svg>
+    </div>
+    <div class="bg-symbol left-green">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="10" width="80" height="80" fill="#4ade80" opacity="0.9"/>
+        <rect x="10" y="60" width="80" height="80" fill="#4ade80" opacity="0.9"/>
+        <rect x="110" y="60" width="80" height="80" fill="#4ade80" opacity="0.9"/>
+        <rect x="60" y="110" width="80" height="80" fill="#4ade80" opacity="0.9"/>
+        <rect x="35" y="35" width="50" height="50" fill="#16a34a" opacity="0.9"/>
+        <rect x="115" y="35" width="50" height="50" fill="#16a34a" opacity="0.9"/>
+        <rect x="35" y="115" width="50" height="50" fill="#16a34a" opacity="0.9"/>
+        <rect x="115" y="115" width="50" height="50" fill="#16a34a" opacity="0.9"/>
+      </svg>
+    </div>
+    <div class="bg-symbol bottom-center">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="10" width="80" height="80" fill="white" opacity="0.1"/>
+        <rect x="10" y="60" width="80" height="80" fill="white" opacity="0.1"/>
+        <rect x="110" y="60" width="80" height="80" fill="white" opacity="0.1"/>
+        <rect x="60" y="110" width="80" height="80" fill="white" opacity="0.1"/>
+        <rect x="35" y="35" width="50" height="50" fill="white" opacity="0.08"/>
+        <rect x="115" y="35" width="50" height="50" fill="white" opacity="0.08"/>
+        <rect x="35" y="115" width="50" height="50" fill="white" opacity="0.08"/>
+        <rect x="115" y="115" width="50" height="50" fill="white" opacity="0.08"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="form-container">
+
+      <!-- Username Input -->
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="username-input"
+          class="username-input"
+          placeholder="DISCORD USERNAME (REQUIRED)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept="image/*" hidden />
+        <div class="upload-content" id="upload-content">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+          </svg>
+          <p class="upload-title" id="upload-title">AWAITING USERNAME...</p>
+          <p class="upload-sub" id="upload-sub">Enter Username to Unlock Upload</p>
+        </div>
+      </div>
+
+      <!-- Tier/Class Selectors -->
+      <div class="selectors-row" id="selectors-row" style="display:none;">
+        <div class="selector-group">
+          <label class="selector-label">CLASS</label>
+          <select id="class-select" class="selector-input">
+            <option value="Bitty">Bitty</option>
+            <option value="Sentinel">Sentinel</option>
+            <option value="Oracle">Oracle</option>
+            <option value="Phantom">Phantom</option>
+            <option value="Cipher">Cipher</option>
+            <option value="Nexus">Nexus</option>
+          </select>
+        </div>
+        <div class="selector-group">
+          <label class="selector-label">TIER</label>
+          <select id="tier-select" class="selector-input">
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV" selected>IV</option>
+            <option value="V">V</option>
+          </select>
+        </div>
+        <div class="selector-group">
+          <label class="selector-label">QUOTE</label>
+          <input type="text" id="quote-input" class="selector-input" placeholder="Custom quote..." value="" />
+        </div>
+      </div>
+
+      <!-- Generate Button -->
+      <button class="generate-btn" id="generate-btn" style="display:none;" onclick="generateCard()">
+        <span>GENERATE CARD</span>
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- CARD MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content">
+      <!-- THE CARD -->
+      <div class="card" id="ritual-card">
+
+        <!-- Corner Brackets -->
+        <div class="corner-bracket top-left"></div>
+        <div class="corner-bracket top-right"></div>
+        <div class="corner-bracket bottom-left"></div>
+        <div class="corner-bracket bottom-right"></div>
+
+        <!-- Card Header -->
+        <div class="card-header-bar">
+          <span class="card-header-text">- - ISO // METRIC // GRID - -</span>
+          <span class="card-hex-id" id="card-hex-id">0x1E57</span>
+        </div>
+
+        <!-- Logo Row -->
+        <div class="card-logo-row">
+          <div class="card-knot-icon">
+            <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="1" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="1" y="10" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="19" y="10" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="10" y="19" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="5" y="5" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="18" y="5" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="5" y="18" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="18" y="18" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+            </svg>
+          </div>
+          <span class="card-ritual-text">RITUAL</span>
+          <div class="card-knot-icon">
+            <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="1" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="1" y="10" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="19" y="10" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="10" y="19" width="10" height="10" fill="#7dd3fc" opacity="0.9"/>
+              <rect x="5" y="5" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="18" y="5" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="5" y="18" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+              <rect x="18" y="18" width="7" height="7" fill="#38bdf8" opacity="0.8"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Avatar Circle -->
+        <div class="avatar-ring-outer">
+          <div class="avatar-ring-inner">
+            <div class="avatar-circle">
+              <img id="card-avatar" src="" alt="Avatar" />
+            </div>
+          </div>
+          <!-- Decorative ring elements -->
+          <div class="ring-dot ring-dot-left"></div>
+          <div class="ring-dot ring-dot-right"></div>
+        </div>
+
+        <!-- Username -->
+        <div class="card-username" id="card-username">USERNAME</div>
+
+        <!-- Separator dots -->
+        <div class="card-separator">
+          <div class="sep-dot"></div>
+          <div class="sep-dot"></div>
+        </div>
+
+        <!-- Quote -->
+        <div class="card-quote" id="card-quote">"You're the reason they have to put 'Not Financial Advice' on everything."</div>
+
+        <!-- Class Name -->
+        <div class="card-class" id="card-class">Bitty</div>
+
+        <!-- Tier & Hash -->
+        <div class="card-tier-row">
+          <span class="card-tier" id="card-tier">TIER IV</span>
+          <span class="card-tier-dot">·</span>
+          <span class="card-hash" id="card-hash">#3498DB</span>
+        </div>
+
+        <!-- Bottom scan line -->
+        <div class="card-scanline"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="modal-actions">
+        <button class="modal-btn download-btn" onclick="downloadCard()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+          DOWNLOAD
+        </button>
+        <button class="modal-btn close-btn" onclick="closeModal()">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+          CLOSE
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
