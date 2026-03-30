@@ -318,3 +318,18 @@ function showError(msg) {
   box.textContent = msg;
   box.style.display = 'block';
 }
+
+// ===================== SHARE TO X (TWITTER) =====================
+function shareToTwitter() {
+  const text = `Axis Passport\n\n[text]\n\n@nheoweb3 @plpiaoliang @chris_anm01`;
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+  
+  // 1. Mở Tap Twitter lên trước để tránh bị trình duyệt chặn Pop-up (nếu để sau hàm tải bất đồng bộ)
+  window.open(url, '_blank');
+  
+  // 2. Chép văn bản vào khay nhớ tạm để lỡ họ muốn Paste ảnh luôn (nếu trình duyệt hỗ trợ)
+  try { navigator.clipboard.writeText(text); } catch(e) {}
+  
+  // 3. Tự động tải ảnh Passport xuống cho họ đính kèm
+  downloadCard();
+}
