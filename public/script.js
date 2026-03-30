@@ -271,7 +271,7 @@ function buildCard(data) {
   const sigBox = document.getElementById('p-signature-box');
   if (sigBox) {
     if (data.rankLabel === 'TEAM') sigBox.style.display = 'none';
-    else sigBox.style.display = 'block';
+    else sigBox.style.display = 'flex';
   }
 
   // Tint watermarks based on theme
