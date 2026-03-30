@@ -111,11 +111,7 @@ app.get('/auth/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/'));
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`\n🚀 Axis Protocol Generator → http://localhost:${PORT}\n`);
-    if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
-  });
-}
-
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`\n🚀 Axis Protocol Generator → http://localhost:${PORT}\n`);
+  if (!CLIENT_ID) console.log('⚠  Copy .env.example → .env and add your Discord credentials\n');
+});
